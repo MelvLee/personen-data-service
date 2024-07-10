@@ -1,0 +1,15 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/api/v1/opvragenBevoegdheidTotGezag",
+      "DownstreamPathTemplate": "/api/v1/opvragenBevoegdheidTotGezag",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "5020"
+        }
+      ]
+    }
+  ]
+}
