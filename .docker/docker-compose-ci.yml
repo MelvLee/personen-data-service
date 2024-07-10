@@ -1,0 +1,20 @@
+services:
+  gezagmock:
+    container_name: gezagmock
+    image: ghcr.io/brp-api/gezag-mock:latest
+    build:
+      context: ../src
+      dockerfile: GezagMock/Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+
+  gezagproxymock:
+    container_name: gezagproxymock
+    image: ghcr.io/brp-api/gezag-proxy-mock:latest
+    build:
+      context: ../src
+      dockerfile: GezagProxyMock/Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
