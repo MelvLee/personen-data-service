@@ -1,0 +1,4 @@
+:!.github/actions/*.*
+:!features/docs/*.*
+:!features/step_definitions/*.*
+*
