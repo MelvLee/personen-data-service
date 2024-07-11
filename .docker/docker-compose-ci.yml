@@ -1,19 +1,19 @@
 services:
-  gezagmock-amd64:
-    image: ghcr.io/brp-api/gezag-mock-amd64:latest
-    build:
-      context: ../src
-      dockerfile: GezagMock/Dockerfile
-      platforms:
-        - linux/amd64
+  # gezagmock-amd64:
+  #   image: ghcr.io/brp-api/gezag-mock-amd64:latest
+  #   build:
+  #     context: ../src
+  #     dockerfile: GezagMock/Dockerfile
+  #     platforms:
+  #       - linux/amd64
 
-  gezagproxymock-amd64:
-    image: ghcr.io/brp-api/gezag-proxy-mock-amd64:latest
-    build:
-      context: ../src
-      dockerfile: GezagProxyMock/Dockerfile
-      platforms:
-        - linux/amd64
+  # gezagproxymock-amd64:
+  #   image: ghcr.io/brp-api/gezag-proxy-mock-amd64:latest
+  #   build:
+  #     context: ../src
+  #     dockerfile: GezagProxyMock/Dockerfile
+  #     platforms:
+  #       - linux/amd64
 
   gezagmock-arm64:
     image: ghcr.io/brp-api/gezag-mock-arm64:latest
