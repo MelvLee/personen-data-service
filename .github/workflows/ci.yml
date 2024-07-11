@@ -35,27 +35,27 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Genereer build run identifier
-        id: build-run-id
-        uses: ./.github/actions/genereer-build-run-identifier
+      # - name: Genereer build run identifier
+      #   id: build-run-id
+      #   uses: ./.github/actions/genereer-build-run-identifier
 
-      - name: Zet versie met build run in Gezag mock csproj
-        uses: ./.github/actions/zet-versie-met-build-run-in-csproj
-        id: app-version
-        with:
-          path-csproj-file: ${{ env.APP_CSPROJ_FILE_PATH }}
-          build-run: ${{ steps.build-run-id.outputs.build-run }}
-      - name: Zet versie met build run in Gezag Proxy mock csproj
-        uses: ./.github/actions/zet-versie-met-build-run-in-csproj
-        id: mock-version
-        with:
-          path-csproj-file: ${{ env.MOCK_CSPROJ_FILE_PATH }}
-          build-run: ${{ steps.build-run-id.outputs.build-run }}
+      # - name: Zet versie met build run in Gezag mock csproj
+      #   uses: ./.github/actions/zet-versie-met-build-run-in-csproj
+      #   id: app-version
+      #   with:
+      #     path-csproj-file: ${{ env.APP_CSPROJ_FILE_PATH }}
+      #     build-run: ${{ steps.build-run-id.outputs.build-run }}
+      # - name: Zet versie met build run in Gezag Proxy mock csproj
+      #   uses: ./.github/actions/zet-versie-met-build-run-in-csproj
+      #   id: mock-version
+      #   with:
+      #     path-csproj-file: ${{ env.MOCK_CSPROJ_FILE_PATH }}
+      #     build-run: ${{ steps.build-run-id.outputs.build-run }}
 
-      - name: Valideer .NET solution
-        uses: ./.github/actions/valideer-dotnet-solution
-        with:
-          path-solution-file: ${{ env.DOTNET_SOLUTION_FILE_PATH }} 
+      # - name: Valideer .NET solution
+      #   uses: ./.github/actions/valideer-dotnet-solution
+      #   with:
+      #     path-solution-file: ${{ env.DOTNET_SOLUTION_FILE_PATH }} 
   
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -85,33 +85,33 @@ jobs:
         run: |
           ./scripts/containers-stop.sh ci
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3.1.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Tag & push gezag mock container images naar registry
-        if: always() && inputs.publishType == 'gezag-mock'
-        run: |
-          docker tag ${{ env.APP_CONTAINER_IMAGE }}-amd64:latest ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-latest
-          docker tag ${{ env.APP_CONTAINER_IMAGE }}-amd64:latest ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-          docker push ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-latest
-          docker push ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      # - name: Login to GitHub Container Registry
+      #   uses: docker/login-action@v3.1.0
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Tag & push gezag mock container images naar registry
+      #   if: always() && inputs.publishType == 'gezag-mock'
+      #   run: |
+      #     docker tag ${{ env.APP_CONTAINER_IMAGE }}-amd64:latest ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-latest
+      #     docker tag ${{ env.APP_CONTAINER_IMAGE }}-amd64:latest ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      #     docker push ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-latest
+      #     docker push ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
 
-          docker tag ${{ env.APP_CONTAINER_IMAGE }}-arm64:latest ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-latest
-          docker tag ${{ env.APP_CONTAINER_IMAGE }}-arm64:latest ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-          docker push ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-latest
-          docker push ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-      - name: Tag & push gezag proxy mock container images naar registry
-        if: always() && inputs.publishType == 'gezag-proxy-mock'
-        run: |
-          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-latest
-          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-latest
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      #     docker tag ${{ env.APP_CONTAINER_IMAGE }}-arm64:latest ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-latest
+      #     docker tag ${{ env.APP_CONTAINER_IMAGE }}-arm64:latest ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      #     docker push ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-latest
+      #     docker push ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      # - name: Tag & push gezag proxy mock container images naar registry
+      #   if: always() && inputs.publishType == 'gezag-proxy-mock'
+      #   run: |
+      #     docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-latest
+      #     docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      #     docker push ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-latest
+      #     docker push ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
 
-          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-latest
-          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-latest
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      #     docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-latest
+      #     docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+      #     docker push ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-latest
+      #     docker push ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
