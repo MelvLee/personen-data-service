@@ -94,14 +94,24 @@ jobs:
       - name: Tag & push gezag mock container images naar registry
         if: always() && inputs.publishType == 'gezag-mock'
         run: |
-          docker tag ${{ env.APP_CONTAINER_IMAGE }}:latest ${{ env.APP_CONTAINER_IMAGE }}:${{ steps.app-version.outputs.version }}-latest
-          docker tag ${{ env.APP_CONTAINER_IMAGE }}:latest ${{ env.APP_CONTAINER_IMAGE }}:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-          docker push ${{ env.APP_CONTAINER_IMAGE }}:${{ steps.app-version.outputs.version }}-latest
-          docker push ${{ env.APP_CONTAINER_IMAGE }}:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+          docker tag ${{ env.APP_CONTAINER_IMAGE }}-amd64:latest ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-latest
+          docker tag ${{ env.APP_CONTAINER_IMAGE }}-amd64:latest ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+          docker push ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-latest
+          docker push ${{ env.APP_CONTAINER_IMAGE }}-amd64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+
+          docker tag ${{ env.APP_CONTAINER_IMAGE }}-arm64:latest ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-latest
+          docker tag ${{ env.APP_CONTAINER_IMAGE }}-arm64:latest ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+          docker push ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-latest
+          docker push ${{ env.APP_CONTAINER_IMAGE }}-arm64:${{ steps.app-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
       - name: Tag & push gezag proxy mock container images naar registry
         if: always() && inputs.publishType == 'gezag-proxy-mock'
         run: |
-          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}:latest ${{ env.MOCK_CONTAINER_IMAGE }}:${{ steps.mock-version.outputs.version }}-latest
-          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}:latest ${{ env.MOCK_CONTAINER_IMAGE }}:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}:${{ steps.mock-version.outputs.version }}-latest
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-latest
+          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-latest
+          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-amd64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+
+          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-latest
+          docker tag ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:latest ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
+          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-latest
+          docker push ${{ env.MOCK_CONTAINER_IMAGE }}-arm64:${{ steps.mock-version.outputs.version }}-${{ steps.build-run-id.outputs.build-run }}
