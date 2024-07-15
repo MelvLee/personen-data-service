@@ -35,27 +35,27 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # - name: Genereer build run identifier
-      #   id: build-run-id
-      #   uses: ./.github/actions/genereer-build-run-identifier
+      - name: Genereer build run identifier
+        id: build-run-id
+        uses: ./.github/actions/genereer-build-run-identifier
 
-      # - name: Zet versie met build run in Gezag mock csproj
-      #   uses: ./.github/actions/zet-versie-met-build-run-in-csproj
-      #   id: app-version
-      #   with:
-      #     path-csproj-file: ${{ env.APP_CSPROJ_FILE_PATH }}
-      #     build-run: ${{ steps.build-run-id.outputs.build-run }}
-      # - name: Zet versie met build run in Gezag Proxy mock csproj
-      #   uses: ./.github/actions/zet-versie-met-build-run-in-csproj
-      #   id: mock-version
-      #   with:
-      #     path-csproj-file: ${{ env.MOCK_CSPROJ_FILE_PATH }}
-      #     build-run: ${{ steps.build-run-id.outputs.build-run }}
+      - name: Zet versie met build run in Gezag mock csproj
+        uses: ./.github/actions/zet-versie-met-build-run-in-csproj
+        id: app-version
+        with:
+          path-csproj-file: ${{ env.APP_CSPROJ_FILE_PATH }}
+          build-run: ${{ steps.build-run-id.outputs.build-run }}
+      - name: Zet versie met build run in Gezag Proxy mock csproj
+        uses: ./.github/actions/zet-versie-met-build-run-in-csproj
+        id: mock-version
+        with:
+          path-csproj-file: ${{ env.MOCK_CSPROJ_FILE_PATH }}
+          build-run: ${{ steps.build-run-id.outputs.build-run }}
 
-      # - name: Valideer .NET solution
-      #   uses: ./.github/actions/valideer-dotnet-solution
-      #   with:
-      #     path-solution-file: ${{ env.DOTNET_SOLUTION_FILE_PATH }} 
+      - name: Valideer .NET solution
+        uses: ./.github/actions/valideer-dotnet-solution
+        with:
+          path-solution-file: ${{ env.DOTNET_SOLUTION_FILE_PATH }} 
   
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -69,6 +69,11 @@ jobs:
         with:
           path-bash-file-or-folder: ./scripts/*
 
+      - name: Configureer container image builder voor multi-platform
+        uses: docker/setup-buildx-action@v3
+        with:
+          platforms: linux/amd64,linux/arm64
+          driver: docker-container
       - name: Build container images
         run: |
           ./scripts/containers-build.sh ci
