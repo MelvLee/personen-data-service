@@ -2,7 +2,7 @@ services:
 
   gezagmock:
     container_name: gezagmock
-    image: ghcr.io/brp-api/gezag-mock-amd64:latest
+    image: ghcr.io/brp-api/gezag-mock:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Release
       - ASPNETCORE_URLS=http://+:5020

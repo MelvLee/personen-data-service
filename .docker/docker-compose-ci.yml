@@ -15,7 +15,7 @@ services:
   #     platforms:
   #       - linux/amd64
 
-  gezagmock-arm64:
+  gezagmock:
     image: ghcr.io/brp-api/gezag-mock:latest
     build:
       context: ../src
@@ -24,7 +24,7 @@ services:
         - linux/amd64
         - linux/arm64
 
-  gezagproxymock-arm64:
+  gezagproxymock:
     image: ghcr.io/brp-api/gezag-proxy-mock:latest
     build:
       context: ../src
