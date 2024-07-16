@@ -78,17 +78,17 @@ jobs:
         run: |
           ./scripts/containers-build.sh ci
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3.1.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Login to GitHub Container Registry
+      #   uses: docker/login-action@v3.1.0
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Push container images naar registry
-        run: |
-          docker push ${{ env.APP_CONTAINER_IMAGE }}:latest
-          docker push ${{ env.MOCK_CONTAINER_IMAGE }}:latest
+      # - name: Push container images naar registry
+      #   run: |
+      #     docker push ${{ env.APP_CONTAINER_IMAGE }}:latest
+      #     docker push ${{ env.MOCK_CONTAINER_IMAGE }}:latest
 
       - name: Start containers
         run: |
