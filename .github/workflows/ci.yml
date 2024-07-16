@@ -23,10 +23,10 @@ env:
   DOTNET_SOLUTION_FILE_PATH: src/data-service.sln
   APP_PROJECT_PATH: ./src/GezagMock
   APP_CSPROJ_FILE_PATH: ./src/GezagMock/GezagMock.csproj
-  APP_CONTAINER_IMAGE: ghcr.io/MelvLee/gezag-mock
+  APP_CONTAINER_IMAGE: ghcr.io/melvlee/gezag-mock
   MOCK_PROJECT_PATH: ./src/GezagProxyMock
   MOCK_CSPROJ_FILE_PATH: ./src/GezagProxyMock/GezagProxyMock.csproj
-  MOCK_CONTAINER_IMAGE: ghcr.io/MelvLee/gezag-proxy-mock
+  MOCK_CONTAINER_IMAGE: ghcr.io/melvlee/gezag-proxy-mock
 
 jobs:
   validate:

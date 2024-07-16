@@ -16,7 +16,7 @@ services:
   #       - linux/amd64
 
   gezagmock:
-    image: ghcr.io/MelvLee/gezag-mock:latest
+    image: ghcr.io/melvlee/gezag-mock:latest
     build:
       context: ../src
       dockerfile: GezagMock/Dockerfile
@@ -25,7 +25,7 @@ services:
         - linux/arm64
 
   gezagproxymock:
-    image: ghcr.io/MelvLee/gezag-proxy-mock:latest
+    image: ghcr.io/melvlee/gezag-proxy-mock:latest
     build:
       context: ../src
       dockerfile: GezagProxyMock/Dockerfile
