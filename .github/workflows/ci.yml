@@ -23,10 +23,10 @@ env:
   DOTNET_SOLUTION_FILE_PATH: src/data-service.sln
   APP_PROJECT_PATH: ./src/GezagMock
   APP_CSPROJ_FILE_PATH: ./src/GezagMock/GezagMock.csproj
-  APP_CONTAINER_IMAGE: ghcr.io/brp-api/gezag-mock
+  APP_CONTAINER_IMAGE: ghcr.io/MelvLee/gezag-mock
   MOCK_PROJECT_PATH: ./src/GezagProxyMock
   MOCK_CSPROJ_FILE_PATH: ./src/GezagProxyMock/GezagProxyMock.csproj
-  MOCK_CONTAINER_IMAGE: ghcr.io/brp-api/gezag-proxy-mock
+  MOCK_CONTAINER_IMAGE: ghcr.io/MelvLee/gezag-proxy-mock
 
 jobs:
   validate:
@@ -84,6 +84,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push container images naar registry
+        run: |
+          docker push ${{ env.APP_CONTAINER_IMAGE }}:latest
+          docker push ${{ env.MOCK_CONTAINER_IMAGE }}:latest
 
       - name: Start containers
         run: |

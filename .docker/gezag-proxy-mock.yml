@@ -2,7 +2,7 @@ services:
 
   gezagproxymock:
     container_name: gezagproxymock
-    image: ghcr.io/brp-api/gezag-proxy-mock:latest
+    image: ghcr.io/MelvLee/gezag-proxy-mock:latest
     environment:
       - ASPNETCORE_ENVIRONMENT=Release
       - ASPNETCORE_URLS=http://+:5130
